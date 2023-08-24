@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMSBackend.Models
@@ -9,17 +10,17 @@ namespace CMSBackend.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Name is Required")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Email is Required")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Contact Number is required")]
         public string contactNumber { get; set; }
-
+        [Required]
         public string password { get; set; }
-
+        [Required]
         public bool status { get; set; }
 
         public string role { get; set; } 
@@ -27,4 +28,5 @@ namespace CMSBackend.Models
        
 
     }
+     
 }
