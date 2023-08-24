@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Project\\CMSBackend\\CMSBackend.csproj": {}
   },
   "projects": {
@@ -13,19 +12,6 @@
         "projectPath": "C:\\Project\\CMSBackend\\CMSBackend.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
         "outputPath": "C:\\Project\\CMSBackend\\obj\\",
-=======
-    "C:\\Intern Project\\CMSBackend\\CMSBackend.csproj": {}
-  },
-  "projects": {
-    "C:\\Intern Project\\CMSBackend\\CMSBackend.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Intern Project\\CMSBackend\\CMSBackend.csproj",
-        "projectName": "CMSBackend",
-        "projectPath": "C:\\Intern Project\\CMSBackend\\CMSBackend.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Intern Project\\CMSBackend\\obj\\",
->>>>>>> f2b936827b5d165f24b8bc34ac8c7ccf5071e2fb
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

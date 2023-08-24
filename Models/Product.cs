@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMSBackend.Models
 {
-    [Table("Product")]
+    /*[Table("Products")]*/
     public class Product
     {
         [Key]
@@ -13,7 +13,10 @@ namespace CMSBackend.Models
         [Required]
 
         [ForeignKey("CategoryId")]
-        public Category CategoryId { get; set; }
+        public virtual Category Category { get; set; }
+
+        public int CategoryId { get; set; }
+
         [Required]
         public string Description { get; set; }
         [Required]

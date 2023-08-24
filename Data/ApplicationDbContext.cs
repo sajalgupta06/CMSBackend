@@ -1,15 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CMSBackend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMSBackend.Data
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext:DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
 
-      //  public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         /*    protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
