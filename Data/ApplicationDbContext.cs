@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CMSBackend.Data
 {
-<<<<<<< HEAD
-    public class ApplicationDbContext : DbContext
-=======
+
+
     public class ApplicationDbContext:DbContext
->>>>>>> 33bc538e583e58db3fd106839eebd7ead74aa463
+
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options) : base(options)
         {
@@ -18,6 +17,8 @@ namespace CMSBackend.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderedItem> OrderedItems{ get; set; }
 
         /*    protected override void OnModelCreating(ModelBuilder modelBuilder)
             {

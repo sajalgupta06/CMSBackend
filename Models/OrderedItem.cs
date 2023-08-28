@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMSBackend.Models
 {
-    public class OrderedItems
+    public class OrderedItem
     {
         [Key]
         public int Id { get; set; }

@@ -47,25 +47,21 @@ namespace CMSBackend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderedItemsId")
                         .HasColumnType("int");
 
+                    b.Property<decimal?>("Total")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("createdBy")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("orderStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("paymentMethod")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("total")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -76,7 +72,7 @@ namespace CMSBackend.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("CMSBackend.Models.OrderedItems", b =>
+            modelBuilder.Entity("CMSBackend.Models.OrderedItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,16 +108,15 @@ namespace CMSBackend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -138,28 +133,29 @@ namespace CMSBackend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("contactNumber")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("password")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("status")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -168,7 +164,7 @@ namespace CMSBackend.Migrations
 
             modelBuilder.Entity("CMSBackend.Models.Order", b =>
                 {
-                    b.HasOne("CMSBackend.Models.OrderedItems", "OrderedItems")
+                    b.HasOne("CMSBackend.Models.OrderedItem", "OrderedItems")
                         .WithMany()
                         .HasForeignKey("OrderedItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -185,7 +181,7 @@ namespace CMSBackend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CMSBackend.Models.OrderedItems", b =>
+            modelBuilder.Entity("CMSBackend.Models.OrderedItem", b =>
                 {
                     b.HasOne("CMSBackend.Models.Product", "Product")
                         .WithMany()

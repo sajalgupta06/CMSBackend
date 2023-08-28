@@ -19,13 +19,13 @@ namespace CMSBackend.Models
 
         [Required]
         public string Description { get; set; }
+
         [Required]
         public int Price { get; set; }
-        [Required]
-        public string Status { get; set; }
-       
+    
+        public string? Image { get; set; }
 
-        
-            
+
+
     }
 }

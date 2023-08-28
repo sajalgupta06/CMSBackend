@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CMSBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class addedModels : Migration
+    public partial class modelcreated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,12 +30,12 @@ namespace CMSBackend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    contactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    status = table.Column<bool>(type: "bit", nullable: false),
-                    role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,7 @@ namespace CMSBackend.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,25 +66,44 @@ namespace CMSBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderedItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductsId = table.Column<int>(type: "int", nullable: false),
+                    ProductsCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderedItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderedItems_Products_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductIds = table.Column<int>(type: "int", nullable: false),
+                    OrderedItemsId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    orderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    paymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    total = table.Column<float>(type: "real", nullable: false),
-                    createdBy = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Products_ProductIds",
-                        column: x => x.ProductIds,
-                        principalTable: "Products",
+                        name: "FK_Orders_OrderedItems_OrderedItemsId",
+                        column: x => x.OrderedItemsId,
+                        principalTable: "OrderedItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -96,9 +115,14 @@ namespace CMSBackend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ProductIds",
+                name: "IX_OrderedItems_ProductsId",
+                table: "OrderedItems",
+                column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderedItemsId",
                 table: "Orders",
-                column: "ProductIds");
+                column: "OrderedItemsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
@@ -118,10 +142,13 @@ namespace CMSBackend.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "OrderedItems");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Categories");
