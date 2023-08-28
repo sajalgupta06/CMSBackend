@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0s7DVuLYFItSYQcg8eMhSBwGUEJwYMv0Vh7haLjR/SnSIRElWMHgGBFIfIgcdH3eOfMD89XU3CxCNMIuuZYDzg==",
+  "dgSpecHash": "YlWF3xVmWZrQ/kH6d7nsUpxf3BVGUGboxoF8UyDLh1lgRx/dbxtSnGO6cexCvFdARE2HWf77SPQSCMcyZslkhg==",
   "success": true,
   "projectFilePath": "F:\\Dev\\Dot Net\\CMSBackend\\CMSBackend.csproj",
   "expectedPackageFiles": [
@@ -60,6 +60,7 @@
     "C:\\Users\\gupta\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\gupta\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\gupta\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\gupta\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.21\\microsoft.aspnetcore.authentication.jwtbearer.6.0.21.nupkg.sha512",
     "C:\\Users\\gupta\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\gupta\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\gupta\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",

@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using CMSBackend.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMSBackend2.Controllers
 {
@@ -21,13 +22,28 @@ namespace CMSBackend2.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
-        public UsersController(ApplicationDbContext context)
+        public UsersController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
+
+        // GET: Check Token
+
+        [Route("/api/checkToken")]
+        [HttpGet, Authorize]
+        public async Task<IActionResult> CheckToken()
+        {
+          
+
+            return  Ok(new { message = "true" });
+        }
+
+
+
         // GET: api/Users
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             if (_context.Users == null)
@@ -38,6 +54,7 @@ namespace CMSBackend2.Controllers
             return await _context.Users.ToListAsync();
         }
 
+   
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
@@ -150,34 +167,46 @@ namespace CMSBackend2.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return Ok(new { message = "User Not Found" });
             }
             if (!BCrypt.Net.BCrypt.Verify(loginmodel.password, user.Password))
             {
-                return BadRequest("Invalid Credentials");
+                return Ok( new { message ="Invalid Credentials" });
             }
 
             string token = CreateToken(user);
-            return Ok(token);
+
+            return Ok(new
+            {
+                message ="Login Successfully",
+                token= token
+            });
         }
 
+        public class TokenModel
+        {
+            public string token { get; set; }
 
+        }
+
+    
 
 
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
-            new Claim(ClaimTypes.Name,user.Email)
+            new Claim("Email",user.Email),
+            new Claim("Role",user.Role),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value!)
-                );
+               _configuration.GetSection("AppSettings:Token").Value!));
 
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
+     
                 signingCredentials: cred);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
