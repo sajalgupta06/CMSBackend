@@ -43,8 +43,19 @@ namespace CMSBackend2.Controllers
 
 
         // GET: api/Users
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Users.Where(u=>u.Role=="USER").ToListAsync();
+        }
+        [Route("allUsers")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             if (_context.Users == null)
             {
@@ -53,8 +64,6 @@ namespace CMSBackend2.Controllers
 
             return await _context.Users.ToListAsync();
         }
-
-   
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
@@ -104,6 +113,46 @@ namespace CMSBackend2.Controllers
             return NoContent();
         }
 
+        // Update User Status
+
+        [Route("updateStatus")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateStatus([FromBody]int id)
+        {
+
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound(new { message = "User Not Found" });
+            }
+            if(user.Status==0)
+            {
+
+            user.Status = 1;
+            }
+            else
+            {
+                user.Status = 0;
+
+
+            }
+            try
+            {
+
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "User Updated Successfully" });
+            }
+            catch
+            {
+                return BadRequest( new { message = "Error while changing status" });
+            }
+
+
+        }
+
+
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -148,6 +197,13 @@ namespace CMSBackend2.Controllers
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+      
+
+
+
+
 
         public class LoginModel
         {

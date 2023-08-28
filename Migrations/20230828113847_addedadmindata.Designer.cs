@@ -4,6 +4,7 @@ using CMSBackend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMSBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230828113847_addedadmindata")]
+    partial class addedadmindata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,14 +59,18 @@ namespace CMSBackend.Migrations
                     b.Property<int>("OrderedItemsId")
                         .HasColumnType("int");
 
-                    b.Property<float?>("Total")
+                    b.Property<decimal?>("Total")
                         .IsRequired()
-                        .HasColumnType("real");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderedItemsId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -84,6 +91,8 @@ namespace CMSBackend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductsId");
+
                     b.ToTable("OrderedItems");
                 });
 
@@ -102,17 +111,19 @@ namespace CMSBackend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<int>("Status")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -152,6 +163,64 @@ namespace CMSBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContactNumber = "9977859801",
+                            Email = "admin@gmail.com",
+                            Name = "Admin",
+                            Password = "admin123456",
+                            Role = "ADMIN",
+                            Status = 1
+                        });
+                });
+
+            modelBuilder.Entity("CMSBackend.Models.Order", b =>
+                {
+                    b.HasOne("CMSBackend.Models.OrderedItem", "OrderedItems")
+                        .WithMany()
+                        .HasForeignKey("OrderedItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CMSBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrderedItems");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CMSBackend.Models.OrderedItem", b =>
+                {
+                    b.HasOne("CMSBackend.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CMSBackend.Models.Product", b =>
+                {
+                    b.HasOne("CMSBackend.Models.Category", "Category")
+                        .WithMany("Product")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("CMSBackend.Models.Category", b =>
+                {
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

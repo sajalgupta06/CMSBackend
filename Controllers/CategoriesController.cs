@@ -52,34 +52,27 @@ namespace CMSBackend.Controllers
 
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        [HttpPut]
+        public async Task<IActionResult> PutCategory( Category category)
         {
-            if (id != category.Id)
+            
+          
+
+                var oldCategory = await _context.Categories.FindAsync(category.Id);
+                    
+            if(oldCategory == null)
             {
-                return BadRequest();
+                return NotFound(new { message = "Category Not Found" });
             }
-
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
+            oldCategory.Name = category.Name;
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+           
 
-            return NoContent();
+            return Ok(new { message = "Category Updated Successfully" });
         }
+
+      
+
 
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -93,7 +86,7 @@ namespace CMSBackend.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return Ok(new { message = "Category Added Successfully" });
         }
 
         // DELETE: api/Categories/5
@@ -113,7 +106,7 @@ namespace CMSBackend.Controllers
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { message = "Category Deleted Successfully" });
         }
 
         private bool CategoryExists(int id)

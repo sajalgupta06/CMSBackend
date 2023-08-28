@@ -20,15 +20,15 @@ namespace CMSBackend.Data
 
         public DbSet<OrderedItem> OrderedItems{ get; set; }
 
-        /*    protected override void OnModelCreating(ModelBuilder modelBuilder)
-            {
-                modelBuilder.Entity<Category>().HasData(
-                    new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
-                    new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
-                    new Category { Id = 3, Name = "History", DisplayOrder = 3 }
+     /*   protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Admin",Email="admin@gmail.com",Password="admin123456",
+                    ContactNumber="9977859801",Role="ADMIN",Status=1 }
+                
 
-                    );
-            }*/
+                );
+        }*/
 
     }
 }

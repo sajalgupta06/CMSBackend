@@ -10,20 +10,20 @@ namespace CMSBackend.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
+        
 
-        [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
-
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
-        [Required]
+       
+
+        [Required]  
         public string Description { get; set; }
 
         [Required]
-        public int Price { get; set; }
+        public float Price { get; set; }
     
-        public string? Image { get; set; }
+        public int Status { get; set; }
 
 
 

@@ -9,19 +9,17 @@ namespace CMSBackend.Models
     {
         [Key] public int Id { get; set; }
 
-        [ForeignKey("OrderedItemsId")]
-        public virtual OrderedItem OrderedItems  { get; set; }
+        [ForeignKey("OrderedItem")]
 
         public  int OrderedItemsId { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
         public string? OrderStatus { get; set; }
 
         [Required]
-        public decimal? Total { get; set; }
+        public float? Total { get; set; }
         public DateTime? CreatedAt { get; set; }
 
     }

@@ -52,34 +52,65 @@ namespace CMSBackend.Controllers
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        [HttpPut]
+        public async Task<IActionResult> PutProduct( Product product)
         {
-            if (id != product.Id)
+
+            int id = product.Id;
+
+            var oldProduct = await _context.Products.FindAsync(product.Id);
+
+            if (oldProduct==null)
             {
-                return BadRequest();
+                return BadRequest("Product Not Found");
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            oldProduct.Name = product.Name;
+            oldProduct.Price = product.Price;
+            oldProduct.Description  = product.Description; 
+            oldProduct.CategoryId = product.CategoryId;
+            await _context.SaveChangesAsync();
 
+            return Ok(new {message="Product Updated Successfully"});
+        }
+
+        [Route("updateStatus")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateStatus([FromBody] int id)
+        {
+
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return NotFound(new { message = "Product Not Found" });
+            }
+            if (product.Status == 0)
+            {
+
+                product.Status = 1;
+            }
+            else
+            {
+                product.Status = 0;
+
+
+            }
             try
             {
+
                 await _context.SaveChangesAsync();
+                return Ok(new { message = "Product Status Changed" });
             }
-            catch (DbUpdateConcurrencyException)
+            catch
             {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(new { message = "Error while changing status" });
             }
 
-            return NoContent();
+
         }
+
+
 
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -93,7 +124,7 @@ namespace CMSBackend.Controllers
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return Ok(new { message="Product Added Successfully"});
         }
 
         // DELETE: api/Products/5
@@ -109,11 +140,20 @@ namespace CMSBackend.Controllers
             {
                 return NotFound();
             }
+            try
+            {
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "Product Deleted Successfully" });
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest(new { message = "Error While Deleting Product" });
 
-            return NoContent();
+            }
+
+
         }
 
         private bool ProductExists(int id)
