@@ -29,6 +29,8 @@ namespace CMSBackend.Controllers
           {
               return NotFound();
           }
+         
+            //  return await _context.Products.Include(p=>(p.Category as Category).Id).ToListAsync();
             return await _context.Products.ToListAsync();
         }
 
@@ -51,7 +53,6 @@ namespace CMSBackend.Controllers
         }
 
         // PUT: api/Products/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         public async Task<IActionResult> PutProduct( Product product)
         {
@@ -113,19 +114,46 @@ namespace CMSBackend.Controllers
 
 
         // POST: api/Products
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+
         public async Task<ActionResult<Product>> PostProduct(Product product)
+        {
+            if (_context.Products == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
+            }
+
+        
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Product Added Successfully" });
+        }
+
+
+        /*public async Task<ActionResult<ProductDto>> PostProduct(ProductDto product)
         {
           if (_context.Products == null)
           {
               return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
           }
-            _context.Products.Add(product);
+
+            Product newProduct = new Product();
+                newProduct.Id =product.Id;
+                newProduct.Name = product.Name;
+                newProduct.Description = product.Description;
+                newProduct.CategoryId = product.CategoryId;
+                newProduct.Price = product.Price;
+                newProduct.Status = product.Status;
+
+            _context.Products.Add(newProduct);
             await _context.SaveChangesAsync();
 
             return Ok(new { message="Product Added Successfully"});
         }
+*/
+
+
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]

@@ -9,12 +9,13 @@ namespace CMSBackend.Models
     {
         [Key] public int Id { get; set; }
 
-        [ForeignKey("OrderedItem")]
+       
+        public OrderedItem[] OrderedItems { get; set; }
 
-        public  int OrderedItemsId { get; set; }
 
-        [ForeignKey("User")]
         public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User? User { get; set; }
 
         public string? OrderStatus { get; set; }
 

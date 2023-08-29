@@ -14,7 +14,7 @@ namespace CMSBackend.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context; 
 
         public OrdersController(ApplicationDbContext context)
         {
@@ -29,6 +29,8 @@ namespace CMSBackend.Controllers
           {
               return NotFound();
           }
+         
+
             return await _context.Orders.ToListAsync();
         }
 
