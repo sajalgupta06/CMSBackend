@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CMSBackend.Data;
 using CMSBackend.Models;
+using static CMSBackend.Controllers.OrdersController;
 
 namespace CMSBackend.Controllers
 {
@@ -29,15 +30,15 @@ namespace CMSBackend.Controllers
           {
               return NotFound();
           }
-         
+            return await _context.Orders.Include("OrderedItems").ToListAsync();
 
-            return await _context.Orders.ToListAsync();
+          //  return await _context.Orders.ToListAsync();
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
-        {
+        {   
           if (_context.Orders == null)
           {
               return NotFound();
@@ -82,6 +83,34 @@ namespace CMSBackend.Controllers
 
             return NoContent();
         }
+
+        public class OrderStatusClass
+        {
+            public int Id { get; set; }
+            public string OrderStatus { get; set; }
+        }
+        [Route("updateOrderStatus")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateOrderStatus(OrderStatusClass orderStatusClass)
+        {
+          
+
+            
+            var order = await  _context.Orders.FindAsync(orderStatusClass.Id);
+
+            if (order == null)
+            {
+                return BadRequest(new { message = "Order Not Found" });
+            }
+
+            order.OrderStatus = orderStatusClass.OrderStatus;
+
+                await _context.SaveChangesAsync();
+
+
+            return Ok(new { message = "Order Status Changed" });
+        }
+
 
         // POST: api/Orders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

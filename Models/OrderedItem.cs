@@ -7,11 +7,13 @@ namespace CMSBackend.Models
     public class OrderedItem
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         public int ProductsId { get; set; }
-       [ ForeignKey("ProductsId")]
+        [ForeignKey("ProductsId")]
         public Product? Product { get; set; }
+
+        public string ProductName { get; set; }
 
         public int ProductsCount { get; set;}
     }

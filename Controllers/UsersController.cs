@@ -170,7 +170,7 @@ namespace CMSBackend2.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(new {message="Account Created Successfully"});
         }
 
         // DELETE: api/Users/5
