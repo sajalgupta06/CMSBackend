@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CMSBackend.Data;
 using CMSBackend.Models;
 using static CMSBackend.Controllers.OrdersController;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMSBackend.Controllers
 {
@@ -23,7 +24,7 @@ namespace CMSBackend.Controllers
         }
 
         // GET: api/Orders
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
           if (_context.Orders == null)
@@ -36,7 +37,7 @@ namespace CMSBackend.Controllers
         }
 
         // GET: api/Orders/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {   
           if (_context.Orders == null)
@@ -55,7 +56,7 @@ namespace CMSBackend.Controllers
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> PutOrder(int id, Order order)
         {
             if (id != order.Id)
@@ -90,7 +91,7 @@ namespace CMSBackend.Controllers
             public string OrderStatus { get; set; }
         }
         [Route("updateOrderStatus")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateOrderStatus(OrderStatusClass orderStatusClass)
         {
           
@@ -128,7 +129,7 @@ namespace CMSBackend.Controllers
         }
 
         // DELETE: api/Orders/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
             if (_context.Orders == null)

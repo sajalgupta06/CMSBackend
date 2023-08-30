@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CMSBackend.Data;
 using CMSBackend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMSBackend.Controllers
 {
@@ -33,7 +34,7 @@ namespace CMSBackend.Controllers
         }
 
         // GET: api/Categories/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
           if (_context.Categories == null)
@@ -52,7 +53,7 @@ namespace CMSBackend.Controllers
 
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> PutCategory( Category category)
         {
             
@@ -76,7 +77,7 @@ namespace CMSBackend.Controllers
 
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
           if (_context.Categories == null)
@@ -90,7 +91,7 @@ namespace CMSBackend.Controllers
         }
 
         // DELETE: api/Categories/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             if (_context.Categories == null)

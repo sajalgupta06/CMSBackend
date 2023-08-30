@@ -1,5 +1,6 @@
 ﻿using CMSBackend.Data;
 using CMSBackend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace CMSBackend.Controllers
             _context = context;
         }
 
-        [Route("details")]
+        [Route("details"), Authorize(Roles = "ADMIN")]
         [HttpGet]
         public async Task<IActionResult> GetDetails()
         {

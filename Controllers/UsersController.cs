@@ -43,7 +43,7 @@ namespace CMSBackend2.Controllers
 
 
         // GET: api/Users
-        [HttpGet]
+        [HttpGet,Authorize(Roles="ADMIN")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             if (_context.Users == null)
@@ -174,7 +174,7 @@ namespace CMSBackend2.Controllers
         }
 
         // DELETE: api/Users/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             if (_context.Users == null)
@@ -253,6 +253,8 @@ namespace CMSBackend2.Controllers
             List<Claim> claims = new List<Claim> {
             new Claim("Email",user.Email),
             new Claim("Role",user.Role),
+            new Claim("Name",user.Name),
+            new Claim(ClaimTypes.Role,"ADMIN"),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                _configuration.GetSection("AppSettings:Token").Value!));
