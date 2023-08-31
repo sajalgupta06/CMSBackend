@@ -52,6 +52,24 @@ namespace CMSBackend.Controllers
             return product;
         }
 
+        [Route("productByCategory")]
+        [HttpGet]
+        public async Task<IActionResult> GetProductByCategory(int id)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+             var product =  await _context.Products.Where(product => product.CategoryId == id).ToListAsync();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
+        }
+
         // PUT: api/Products/5
         [HttpPut]
         public async Task<IActionResult> PutProduct( Product product)
