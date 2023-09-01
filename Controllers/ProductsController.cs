@@ -88,6 +88,7 @@ namespace CMSBackend.Controllers
             oldProduct.Price = product.Price;
             oldProduct.Description  = product.Description; 
             oldProduct.CategoryId = product.CategoryId;
+            oldProduct.Image = product.Image;
             await _context.SaveChangesAsync();
 
             return Ok(new {message="Product Updated Successfully"});

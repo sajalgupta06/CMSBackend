@@ -27,6 +27,8 @@ namespace CMSBackend.Models
     
         public int Status { get; set; }
 
+        public string Image { get; set; }
+
 
 
     }
