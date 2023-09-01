@@ -223,17 +223,17 @@ namespace CMSBackend2.Controllers
 
             if (user == null)
             {
-                return Ok(new { message = "User Not Found" });
+                return BadRequest(new { message = "User Not Found" });
             }
             if (!BCrypt.Net.BCrypt.Verify(loginmodel.password, user.Password))
             {
-                return Ok( new { message ="Invalid Credentials" });
+                return BadRequest( new { message ="Invalid Credentials" });
             }
 
                 
             if(user.Status==0)
             {
-                return BadRequest("User is Temporarily Blocked");
+                return BadRequest(new { message = "User is Temporarily Blocked" });
             }
 
             string token = CreateToken(user);
