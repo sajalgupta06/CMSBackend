@@ -14,6 +14,7 @@ namespace CMSBackend.Models
         public Product? Product { get; set; }
 
         public string ProductName { get; set; }
+        public int ProductsPrice { get; set; }
 
         public int ProductsCount { get; set;}
     }

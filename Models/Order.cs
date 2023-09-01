@@ -25,6 +25,7 @@ namespace CMSBackend.Models
         [Required]
         public float? Total { get; set; }
         public string PaymentMethod { get; set; }
+        public string Address { get; set; }
         public DateTime? CreatedAt { get; set; }
 
     }

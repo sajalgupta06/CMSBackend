@@ -125,7 +125,8 @@ namespace CMSBackend.Controllers
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+            return Ok(new { message = "Order SuccessfullyPlaced" });
+
         }
 
         // DELETE: api/Orders/5

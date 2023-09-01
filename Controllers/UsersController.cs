@@ -254,6 +254,7 @@ namespace CMSBackend2.Controllers
             new Claim("Email",user.Email),
             new Claim("Role",user.Role),
             new Claim("Name",user.Name),
+            new Claim("Id",user.Id.ToString()),
             new Claim(ClaimTypes.Role,"ADMIN"),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
