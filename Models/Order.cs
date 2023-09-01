@@ -14,7 +14,7 @@ namespace CMSBackend.Models
         public ICollection<OrderedItem> OrderedItems { get; set; } = new List<OrderedItem>();
 
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("UserId")] 
         public User? User { get; set; }
 
         public string UserName { get; set; } = string.Empty;

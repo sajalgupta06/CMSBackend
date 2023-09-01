@@ -24,7 +24,7 @@ namespace CMSBackend.Controllers
         }
 
         // GET: api/Orders
-        [HttpGet, Authorize(Roles = "ADMIN")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
           if (_context.Orders == null)
