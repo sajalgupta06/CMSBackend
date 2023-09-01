@@ -230,6 +230,12 @@ namespace CMSBackend2.Controllers
                 return Ok( new { message ="Invalid Credentials" });
             }
 
+                
+            if(user.Status==0)
+            {
+                return BadRequest("User is Temporarily Blocked");
+            }
+
             string token = CreateToken(user);
 
             return Ok(new
