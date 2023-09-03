@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Dev\\Dot Net\\CMSBackend\\CMSBackend.csproj": {}
+    "D:\\Project\\CMSBackend\\CMSBackend.csproj": {}
   },
   "projects": {
-    "F:\\Dev\\Dot Net\\CMSBackend\\CMSBackend.csproj": {
+    "D:\\Project\\CMSBackend\\CMSBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Dev\\Dot Net\\CMSBackend\\CMSBackend.csproj",
+        "projectUniqueName": "D:\\Project\\CMSBackend\\CMSBackend.csproj",
         "projectName": "CMSBackend",
-        "projectPath": "F:\\Dev\\Dot Net\\CMSBackend\\CMSBackend.csproj",
-        "packagesPath": "C:\\Users\\gupta\\.nuget\\packages\\",
-        "outputPath": "F:\\Dev\\Dot Net\\CMSBackend\\obj\\",
+        "projectPath": "D:\\Project\\CMSBackend\\CMSBackend.csproj",
+        "packagesPath": "C:\\Users\\Ayush Dubey\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\CMSBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gupta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ayush Dubey\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -94,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
