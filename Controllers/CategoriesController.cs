@@ -30,8 +30,10 @@ namespace CMSBackend.Controllers
           {
               return NotFound();
           }
+
             return await _context.Categories.ToListAsync();
         }
+
 
         // GET: api/Categories/5
         [HttpGet("{id}"), Authorize(Roles = "ADMIN")]

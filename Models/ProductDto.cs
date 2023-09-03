@@ -24,7 +24,5 @@ namespace CMSBackend.Models
 
         public int Status { get; set; } = 0;
 
-
-
     }
 }

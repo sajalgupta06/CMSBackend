@@ -20,6 +20,8 @@ namespace CMSBackend.Data
 
         public DbSet<OrderedItem> OrderedItems{ get; set; }
 
+        public DbSet<CMSBackend.Models.ProductDto>? ProductDto { get; set; }
+
      /*   protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
