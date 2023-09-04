@@ -13,6 +13,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using CMSBackend.Data;
 using Microsoft.AspNetCore.Authorization;
+using static CMSBackend2.Controllers.UsersController;
 
 namespace CMSBackend2.Controllers
 {
@@ -162,6 +163,12 @@ namespace CMSBackend2.Controllers
             if (_context.Users == null)
             {
                 return Problem("Entity set 'CmsdatabaseContext.Users'  is null.");
+            }
+            var checkUser = await _context.Users.Where(u => u.Email == user.Email).FirstOrDefaultAsync();
+
+            if (checkUser != null)
+            {
+                return BadRequest(new { message = "User Already Exist" });
             }
 
             user.Status = 1;

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Intern Project Final\\CMSBackend\\CMSBackend.csproj": {}
+    "C:\\Project\\CMSBackend\\CMSBackend.csproj": {}
   },
   "projects": {
-    "C:\\Intern Project Final\\CMSBackend\\CMSBackend.csproj": {
+    "C:\\Project\\CMSBackend\\CMSBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Intern Project Final\\CMSBackend\\CMSBackend.csproj",
+        "projectUniqueName": "C:\\Project\\CMSBackend\\CMSBackend.csproj",
         "projectName": "CMSBackend",
-        "projectPath": "C:\\Intern Project Final\\CMSBackend\\CMSBackend.csproj",
+        "projectPath": "C:\\Project\\CMSBackend\\CMSBackend.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Intern Project Final\\CMSBackend\\obj\\",
+        "outputPath": "C:\\Project\\CMSBackend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
