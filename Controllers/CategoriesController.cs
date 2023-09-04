@@ -66,6 +66,7 @@ namespace CMSBackend.Controllers
                 return NotFound(new { message = "Category Not Found" });
             }
             oldCategory.Name = category.Name;
+            oldCategory.Image = category.Image;
                 await _context.SaveChangesAsync();
            
 
