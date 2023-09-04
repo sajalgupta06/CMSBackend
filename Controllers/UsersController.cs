@@ -21,6 +21,7 @@ namespace CMSBackend2.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+
         private readonly IConfiguration _configuration;
         public UsersController(ApplicationDbContext context, IConfiguration configuration)
         {
@@ -164,13 +165,28 @@ namespace CMSBackend2.Controllers
             }
 
             user.Status = 1;
+
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
             user.Password = passwordHash;
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+        
 
-            return Ok(new {message="Account Created Successfully"});
+            try
+            {
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "Account Created Successfully" });
+
+
+
+            }
+            catch 
+            {
+                return BadRequest(new {message =  "Error Occured" });
+            }
+
+
         }
 
         // DELETE: api/Users/5
@@ -203,16 +219,16 @@ namespace CMSBackend2.Controllers
 
 
 
-
-
         public class LoginModel
         {
             public string email { get; set; }
             public string password { get; set; }
         }
 
-        [Route("login")]
 
+
+
+        [Route("login")]
         [HttpPost]
 
 
@@ -225,10 +241,13 @@ namespace CMSBackend2.Controllers
             {
                 return BadRequest(new { message = "User Not Found" });
             }
+
+
             if (!BCrypt.Net.BCrypt.Verify(loginmodel.password, user.Password))
             {
                 return BadRequest( new { message ="Invalid Credentials" });
             }
+
 
                 
             if(user.Status==0)
@@ -271,8 +290,8 @@ namespace CMSBackend2.Controllers
             var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
-     
-                signingCredentials: cred);
+                signingCredentials: cred
+                );
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;

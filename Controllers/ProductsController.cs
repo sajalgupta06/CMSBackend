@@ -60,7 +60,7 @@ namespace CMSBackend.Controllers
             {
                 return NotFound();
             }
-             var product =  await _context.Products.Where(product => product.CategoryId == id).ToListAsync();
+             var product =  await _context.Products.Where(product => product.CategoryId == id && product.Status==1).ToListAsync();
 
             if (product == null)
             {

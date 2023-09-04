@@ -22,9 +22,31 @@ namespace CMSBackend.Controllers
         {
             _context = context;
         }
+        [Route("ordersByUserId")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserOrders(int id)
+        {
+            if (_context.Orders == null)
+            {
+                return NotFound();
+            }
+            var order = await _context.Orders.Where(o => o.UserId == id).ToListAsync();
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(order);
+
+        }
+
+
+
+
 
         // GET: api/Orders
-        [HttpGet]
+        [HttpGet,Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
           if (_context.Orders == null)
@@ -36,23 +58,8 @@ namespace CMSBackend.Controllers
           //  return await _context.Orders.ToListAsync();
         }
 
-        // GET: api/Orders/5
-        [HttpGet("{id}"), Authorize(Roles = "ADMIN")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
-        {   
-          if (_context.Orders == null)
-          {
-              return NotFound();
-          }
-            var order = await _context.Orders.FindAsync(id);
-
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return order;
-        }
+        
+      
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -125,7 +132,7 @@ namespace CMSBackend.Controllers
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Order SuccessfullyPlaced" });
+            return Ok(new { message = "Order Successfully Placed" });
 
         }
 
