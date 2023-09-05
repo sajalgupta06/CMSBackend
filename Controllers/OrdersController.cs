@@ -22,6 +22,8 @@ namespace CMSBackend.Controllers
         {
             _context = context;
         }
+
+
         [Route("ordersByUserId")]
         [HttpGet]
         public async Task<IActionResult> GetUserOrders(int id)
@@ -30,7 +32,7 @@ namespace CMSBackend.Controllers
             {
                 return NotFound();
             }
-            var order = await _context.Orders.Where(o => o.UserId == id).ToListAsync();
+            var order = await _context.Orders.Where(o => o.UserId == id).Include("OrderedItems").ToListAsync();
 
             if (order == null)
             {
