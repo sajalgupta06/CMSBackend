@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CMSBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class mg1 : Migration
+    public partial class CMSmig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

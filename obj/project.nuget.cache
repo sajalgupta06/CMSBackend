@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/WG9Ot+EYgZnIN1q9nMhXzSnk+0Rp1pmpPMlj332D3MkMsMzHcPTQf/V9aR/u4sSyMCO/S6jIJdQZnmEfVp2kA==",
+  "dgSpecHash": "ZDU8OrJMsKQr3G/4Fg322uSsZ0oMXpCR9suu8L3ng6TbzHLTz4wfMJGrHDl2cbw/az+lvfF1BL6h/25iX6efkw==",
   "success": true,
-  "projectFilePath": "C:\\Project\\CMSBackend\\CMSBackend.csproj",
+  "projectFilePath": "C:\\DotNetTraining\\CMS\\CMSBackend\\CMSBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
